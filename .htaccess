@@ -1,0 +1,13 @@
+#Para funcionar sem alterar o httpd.conf (alteraria o XAMPP todo e afetaria os restantes projetos)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # A base na raiz é apenas a subpasta do projeto
+    RewriteBase /ci4_test/
+    
+    # Se a pessoa aceder à raiz vazia (http://localhost/ci4_test/), força ir para public/
+    RewriteRule ^$ public/ [L]
+
+    #manda para public/ (alteração do index.php da raiz para a public)
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
