@@ -20,8 +20,8 @@ class Blog extends BaseController
         if($this->request->getMethod() == 'POST') {
             //form submission has happened
             $rules = [
-                "title" => 'required|min_length[6]|max_length[255]',
-                "body" => 'required',
+                "title" => 'required|min_length[6]|max_length[255]|trim',
+                "body" => 'required|trim',
             ];
 
             if(!$this->validate($rules)) {//Validates the request against the provided set of rules
@@ -34,9 +34,9 @@ class Blog extends BaseController
                 $permalink = url_title($cleanTitle, '-', true);
 
                 $sendData = [
-                    "title" => $rawTitle,
-                    "body" => $this->request->getPost('body'),
-                    "slug" => $permalink,                    
+                    "title" => filter_var($rawTitle, FILTER_SANITIZE_SPECIAL_CHARS),
+                    "body" => filter_var($this->request->getPost('body'), FILTER_SANITIZE_SPECIAL_CHARS),
+                    "slug" => filter_var($permalink, FILTER_SANITIZE_SPECIAL_CHARS),                    
                     "author_id" => session()->get('id'),
                 ];
 

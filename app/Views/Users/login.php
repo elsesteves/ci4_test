@@ -21,9 +21,10 @@
                 </div>
             <?php endif; ?>
             <form class="" action="<?= base_url('login') ?>" method="POST">
+                <?= csrf_field() ?> 
                 <div class="form-group">
                     <label for="email">Email address</label>                        
-                    <input type="text" class="form-control" name="email" id="email" value="<?=  set_value('email') ?>">
+                    <input type="text" class="form-control" name="email" id="email" value="<?= esc(set_value('email')) ?>">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>                        

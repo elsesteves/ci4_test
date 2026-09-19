@@ -76,12 +76,12 @@ class Filters extends BaseFilters
      * }
      */
     public array $globals = [
-        'before' => [
+        'before' => [            
+            'userscheck',//custom filter to ensure single point of entry 4 user pages - makes redirects, should come first
+
             // 'honeypot',
             'csrf',
             // 'invalidchars',
-
-            'userscheck',//custom filter to ensure single point of entry 4 user pages
         ],
         'after' => [
             // 'honeypot',

@@ -13,17 +13,17 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 form-group">
                         <label for="firstname">First Name</label>                        
-                        <input type="text" class="form-control" name="firstname" id="firstname" value="<?= set_value('firstname') ?>">
+                        <input type="text" class="form-control" name="firstname" id="firstname" value="<?= esc(set_value('firstname')) ?>">
                     </div>
                     
                     <div class="col-12 col-sm-6 form-group">
                         <label for="lastname">Last Name</label>                        
-                        <input type="text" class="form-control" name="lastname" id="lastname" value="<?=  set_value('lastname') ?>">
+                        <input type="text" class="form-control" name="lastname" id="lastname" value="<?= esc(set_value('lastname')) ?>">
                     </div>
                 
                     <div class="form-group">
                         <label for="email">Email address</label>                        
-                        <input type="text" class="form-control" name="email" id="email" value="<?=  set_value('email') ?>">
+                        <input type="text" class="form-control" name="email" id="email" value="<?= esc(set_value('email')) ?>">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>                        

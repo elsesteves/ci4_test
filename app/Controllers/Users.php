@@ -13,8 +13,8 @@ class Users extends BaseController
             //form submission has happened
             //data validation
             $rules = [                
-                "email" => 'required|min_length[6]|max_length[50]|valid_email',
-                "password" => 'required|min_length[8]|max_length[255]|validateUser[email, password]',
+                "email" => 'required|min_length[6]|max_length[50]|valid_email|trim',
+                "password" => 'required|min_length[8]|max_length[255]|validateUser[email, password]|trim',
             ];
 
             $errors = [
@@ -61,11 +61,11 @@ class Users extends BaseController
             //form submission has happened
             //data validation
             $rules = [
-                "firstname" => 'required|min_length[3]|max_length[50]',
-                "lastname" => 'required|min_length[3]|max_length[50]',
-                "email" => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]',
-                "password" => 'required|min_length[8]|max_length[255]',
-                "password_confirm" => 'matches[password]',
+                "firstname" => 'required|min_length[3]|max_length[50]|trim',
+                "lastname" => 'required|min_length[3]|max_length[50]|trim',
+                "email" => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]|trim',
+                "password" => 'required|min_length[8]|max_length[255]|trim',
+                "password_confirm" => 'matches[password]|trim',
             ];
 
             if(!$this->validate($rules)) {
@@ -75,10 +75,10 @@ class Users extends BaseController
                 $model = new \App\Models\User();
 
                 $newData = [
-                    "firstname" => $this->request->getVar('firstname'),
-                    "lastname" => $this->request->getVar('lastname'),
-                    "email" => $this->request->getVar('email'),
-                    "password" => $this->request->getVar('password'),
+                    "firstname" => filter_var($this->request->getVar('firstname'), FILTER_SANITIZE_SPECIAL_CHARS),
+                    "lastname" => filter_var($this->request->getVar('lastname'), FILTER_SANITIZE_SPECIAL_CHARS),
+                    "email" => filter_var($this->request->getVar('email'), FILTER_SANITIZE_SPECIAL_CHARS),
+                    "password" => filter_var($this->request->getVar('password'), FILTER_SANITIZE_SPECIAL_CHARS),
                 ];
                 $model->save($newData);
 
@@ -104,24 +104,24 @@ class Users extends BaseController
             //form submission has happened
             //data validation
             $rules = [
-                "firstname" => 'required|min_length[3]|max_length[50]',
-                "lastname" => 'required|min_length[3]|max_length[50]',
+                "firstname" => 'required|min_length[3]|max_length[50]|trim',//trim() for sanitization
+                "lastname" => 'required|min_length[3]|max_length[50]|trim',
             ];
 
             $newData = [
                 "id" => session()->get('id'),
-                "firstname" => $this->request->getVar('firstname'),
-                "lastname" => $this->request->getVar('lastname'),
+                "firstname" => filter_var($this->request->getVar('firstname'), FILTER_SANITIZE_SPECIAL_CHARS),
+                "lastname" => filter_var($this->request->getVar('lastname'), FILTER_SANITIZE_SPECIAL_CHARS),
             ];
 
             if($this->request->getPost('password')) {
                 //Password change is optional
                 $rules = array_merge($rules, [
-                    "password" => 'required|min_length[8]|max_length[255]',
-                    "password_confirm" => 'matches[password]',
+                    "password" => 'required|min_length[8]|max_length[255]|trim',
+                    "password_confirm" => 'matches[password]|trim',
                 ]);
 
-                $newData["password"] = $this->request->getPost('password');
+                $newData["password"] = filter_var($this->request->getPost('password'), FILTER_SANITIZE_SPECIAL_CHARS);
             }
 
             if(!$this->validate($rules)) {
