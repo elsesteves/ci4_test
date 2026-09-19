@@ -79,12 +79,12 @@ class Filters extends BaseFilters
         'before' => [            
             'userscheck',//custom filter to ensure single point of entry 4 user pages - makes redirects, should come first
 
-            // 'honeypot',
+            'honeypot',
             'csrf',
             // 'invalidchars',
         ],
         'after' => [
-            // 'honeypot',
+            'honeypot',
             // 'secureheaders',
         ],
     ];

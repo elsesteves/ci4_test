@@ -13,8 +13,8 @@
                     <?= session()->get('success') ?>
                 </div>
             <?php endif; ?>
-            <form class="" action="<?= base_url('profile') ?>" method="POST">
-                <?= csrf_field() ?> 
+
+            <?= form_open('profile'); ?>
                 <div class="row">
                     <div class="col-12 col-sm-6 form-group">
                         <label for="firstname">First Name</label>                        
@@ -53,7 +53,7 @@
                         <button class="btn btn-primary" type="submit">Update</button>
                     </div>
                 </div>
-            </form>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

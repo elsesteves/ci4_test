@@ -20,8 +20,8 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <form class="" action="<?= base_url('login') ?>" method="POST">
-                <?= csrf_field() ?> 
+            
+            <?= form_open('login') ?>
                 <div class="form-group">
                     <label for="email">Email address</label>                        
                     <input type="text" class="form-control" name="email" id="email" value="<?= esc(set_value('email')) ?>">
@@ -30,15 +30,15 @@
                     <label for="password">Password</label>                        
                     <input type="password" class="form-control" name="password" id="password" value="">
                 </div>
-                <div class="row">
-                    <div class="col-12 col-sm-4">
-                        <button class="btn btn-primary" type="submit">Login</button>
-                    </div>
-                    <div class="col-12 col-sm-8 text-end">
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-8">
                         <a href="<?= base_url('register') ?>">Don't have an account yet?</a>
                     </div>
+                    <div class="col-12 col-sm-4 text-end">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
                 </div>
-            </form>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

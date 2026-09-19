@@ -1,5 +1,5 @@
 <?= $this->extend("_layouts/default") ?>
-
+<?php if(isset($post) && !empty($post)) : ?>
 <?= $this->section("pageTitle") ?><?= esc($post['title']) ?><?php $this->endSection() ?>
 <?= $this->section("pageContent") ?>
 
@@ -23,5 +23,5 @@
         </div>
     </div>
 </section>
-
 <?= $this->endSection() ?>
+<?php endif; ?>

@@ -12,3 +12,4 @@ Stuff I've tried:
  - Custom Validation
  - XSS sanitization
  - CSRF tokens
+ - Honeypot fields

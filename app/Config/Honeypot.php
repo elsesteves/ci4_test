@@ -19,19 +19,19 @@ class Honeypot extends BaseConfig
     /**
      * Honeypot Field Name
      */
-    public string $name = 'honeypot';
+    public string $name = 'u_city';//to make it believe for the bot as if it were user city
 
     /**
      * Honeypot HTML Template
      */
-    public string $template = '<label>{label}</label><input type="text" name="{name}" value="">';
+    public string $template = '<label class="form-label">{label}</label><br><input type="text" class="form-control" name="{name}" value="">';
 
     /**
      * Honeypot container
      *
      * If you enabled CSP, you can remove `style="display:none"`.
      */
-    public string $container = '<div style="display:none">{template}</div>';
+    public string $container = '<div class="form-group u_city-wrapper">{template}</div>';
 
     /**
      * The id attribute for Honeypot container tag

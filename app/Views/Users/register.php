@@ -8,8 +8,8 @@
         <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 pt-3 mt-5 pb-3 bg-white form-wrapper">
             <h3>Register</h3>
             <hr>
-            <form class="" action="<?= base_url('register') ?>" method="POST">
-                <?= csrf_field() ?> 
+            <?= form_open('register'); ?>
+
                 <div class="row">
                     <div class="col-12 col-sm-6 form-group">
                         <label for="firstname">First Name</label>                        
@@ -43,15 +43,16 @@
                 </div>
                 <?php endif; ?>
                 
-                <div class="row">
-                    <div class="col-12 col-sm-4">
-                        <button class="btn btn-primary" type="submit">Register</button>
-                    </div>
+                <div class="row mt-2">
                     <div class="col-12 col-sm-8 text-end">
                         <a href="<?= base_url("login") ?>">Already have an account?</a>
                     </div>
+                    <div class="col-12 col-sm-4">
+                        <button class="btn btn-primary" type="submit">Register</button>
+                    </div>
                 </div>
-            </form>
+
+            <?= form_close(); ?>
         </div>
     </div>
 </div>

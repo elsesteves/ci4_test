@@ -2,6 +2,10 @@ body {
     background: #e1e1e1;
 }
 
+.u_city-wrapper {
+    display:none !important;
+}
+
 
 .form-wrapper {
     border-radius: 7px;

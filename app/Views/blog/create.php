@@ -15,9 +15,8 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <form action="<?= base_url('blog/create') ?>" method="POST">
-                <?= csrf_field() ?>
 
+            <?= form_open('blog/create') ?>
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" name="title" id="title" class="form-control" value="<?= set_value('title') ?>">
@@ -31,7 +30,7 @@
                 <div class="form-group mt-2 text-end">
                     <button class="btn btn-primary" type="submit">Create</button>
                 </div>
-            </form>
+            <?= form_close() ?>
         </div>
     </div>
 </div>
