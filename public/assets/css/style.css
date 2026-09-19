@@ -63,6 +63,24 @@ a:visited {
     color: #dd4814;
 }
 
+.post {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden; 
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.post pre, .post code {
+    white-space: pre-wrap; 
+    overflow-x: auto; 
+    max-width: 100%;
+}
+
 @media (max-width: 768px) {
     .form-wrapper .text-end {
         text-align: center !important;

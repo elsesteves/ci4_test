@@ -21,6 +21,9 @@
             }
             ?>
         </div>
+        <div class="post">
+            <?= $post['body'] ?>
+        </div>
     </div>
 </section>
 <?= $this->endSection() ?>

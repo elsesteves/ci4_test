@@ -38,6 +38,34 @@ class Blog extends Model {
         
         return $data;
     }
+    
+    public function permalink(string $rawTitle, $id = null) {
+        $cleanTitle = convert_accented_characters($rawTitle); 
+        $permalink = url_title($cleanTitle, '-', true);
+
+        //Ensure uniqueness
+        $link = $permalink;
+        $unique = false;
+        $i = 0;
+        while(!$unique) {
+            $query  = $this->where('slug', $link);
+
+            if(!empty($id)) {
+                $query->where('id !=', $id);
+            }
+                        
+            $posts = $query->findAll();
+
+            if(empty($posts)) {
+                $unique = true;
+            } else {
+                $i++;
+                $link = $permalink.'-'.$i;
+            }
+        }
+
+        return $link;
+    }
 
     public function getPosts($slug = null) {
         $authorModel = new User();

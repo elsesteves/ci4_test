@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="<?= base_url('/assets/css/style.css') ?>">
 	<title><?= $this->renderSection("pageTitle") ?> | CI4 Test</title>
     <link rel="shortcut icon" href="<?= base_url("assets/img/ci.svg") ?>" />
+
+    <?= $this->renderSection("pageStyles") ?>
 </head>
 <body>
-
     <?php include __DIR__ .'/header.php'; ?>
 
     <?= $this->renderSection("pageContent") ?>
 
     <?php include __DIR__ .'/footer.php'; ?>
 
+    <?= $this->renderSection("pageScripts") ?>
 </body>
 </html>

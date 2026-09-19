@@ -28,6 +28,7 @@
                 <ul class="dropdown-menu">
                     <?php if(session()->get('isLoggedIn')) : ?>
                     <li><a class="dropdown-item" href="<?= base_url('blog/create') ?>">Create Blog Post</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('blog/my-posts') ?>">My Blog Posts</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <?php endif; ?>
                     <li><a class="dropdown-item" href="<?= base_url('about') ?>">About Us</a></li>

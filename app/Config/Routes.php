@@ -26,6 +26,8 @@ $routes->get('/logout', 'Users::logout', [
 ]);
 
 $routes->match(['GET', 'POST'], 'blog/create', 'Blog::create', ["filter" => 'auth']);
+$routes->match(['GET', 'POST'], 'blog/edit/(:num)', 'Blog::edit/$1', ["filter" => 'auth']);
+$routes->match(['GET', 'POST'], 'blog/my-posts', 'Blog::myPosts', ["filter" => 'auth']);
 $routes->get('/post/(:segment)', 'Blog::post/$1');
 
 $routes->get('/pages/(:segment)', 'Pages::show/$1');
