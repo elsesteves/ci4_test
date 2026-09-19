@@ -39,6 +39,7 @@ class Filters extends BaseFilters
         'auth' => \App\Filters\Auth::class,
         'noauth' => \App\Filters\NoAuth::class,
         'userscheck' => \App\Filters\UsersCheck::class,
+        'apiauth' => \App\Filters\APIAuth::class,
     ];
 
     /**

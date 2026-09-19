@@ -7,8 +7,16 @@ use CodeIgniter\Router\RouteCollection;
 
 
 $routes->group('api', function($routes) {
-    // Isto cria /api/blog para listar/criar e /api/blog/(:segment) para ver/atualizar/apagar
     $routes->resource('blog', ['controller' => 'API\Blog']);
+
+    $routes->post('login', 'API\Auth::login');//public route for getting the JWT
+
+    // Private routes group - JWT required
+    $routes->group('', ['filter' => 'apiauth'], function($routes) {
+        // GET /api/user/profile onlu fetch the data from JWT user
+        $routes->get('user/profile', 'API\User::profile');
+        $routes->post('user/profile', 'API\User::profile');
+    });
 });
 
 

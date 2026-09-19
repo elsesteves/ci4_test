@@ -12,7 +12,8 @@
     "require": {
         "php": "^8.2",
         "codeigniter4/framework": "^4.7",
-        "ezyang/htmlpurifier": "^4.19"
+        "ezyang/htmlpurifier": "^4.19",
+        "firebase/php-jwt": "^7.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
