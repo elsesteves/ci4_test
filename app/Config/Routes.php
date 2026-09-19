@@ -6,6 +6,13 @@ use CodeIgniter\Router\RouteCollection;
 //$routes->get('/', 'Home::index');
 
 
+$routes->group('api', function($routes) {
+    // Isto cria /api/blog para listar/criar e /api/blog/(:segment) para ver/atualizar/apagar
+    $routes->resource('blog', ['controller' => 'API\Blog']);
+});
+
+
+
 $routes->get('/', 'Pages::index');//pass home as 1st argument
 $routes->match(['GET', 'POST'], '/login', 'Users::index', ["filter" => 'noauth']);
 $routes->match(['GET', 'POST'], '/register', 'Users::register', ["filter" => 'noauth']);

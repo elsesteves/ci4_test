@@ -76,15 +76,16 @@ class Filters extends BaseFilters
      * }
      */
     public array $globals = [
-        'before' => [            
-            'userscheck',//custom filter to ensure single point of entry 4 user pages - makes redirects, should come first
+        'before' => [    
+            //custom filter to ensure single point of entry 4 user pages - makes redirects, should come first        
+            'userscheck' => ['except' => ['api/*']],//exclude API from filters
 
-            'honeypot',
-            'csrf',
+            'honeypot' => ['except' => ['api/*']],
+            'csrf' => ['except' => ['api/*']],
             // 'invalidchars',
         ],
         'after' => [
-            'honeypot',
+            'honeypot' => ['except' => ['api/*']],
             // 'secureheaders',
         ],
     ];
