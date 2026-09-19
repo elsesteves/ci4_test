@@ -15,7 +15,11 @@
     <div class="container">
         <h1><?= $post['title'] ?></h1>
         <div class="details" style="font-size: 14px;">
-            Posted on: <?= date('d-M-Y', strtotime($post['created_at'])) ?> by <?= $post['author']['firstname'] . ' ' . $post['author']['lastname'] ?>
+            Posted on: <?= date('d-M-Y', strtotime($post['created_at'])) ?><?php 
+            if(isset($post['author']) && !empty($post['author'])) {
+                print ' by '. $post['author']['firstname'] . ' ' . $post['author']['lastname'];
+            }
+            ?>
         </div>
     </div>
 </section>
