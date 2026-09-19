@@ -10,3 +10,5 @@ Stuff I've tried:
  - 404
  - Routing
  - Custom Validation
+ - XSS sanitization
+ - CSRF tokens
