@@ -31,7 +31,7 @@ class Blog extends ResourceController
             return $this->failNotFound('Post não encontrado.');
         }
 
-        return $this->respond($post);
+        return $this->respond($post, 200);
     }
 
     // POST /api/blog (Criar um novo post)

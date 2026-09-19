@@ -13,3 +13,4 @@ Stuff I've tried:
  - XSS sanitization
  - CSRF tokens
  - Honeypot fields
+ - API endpoint creation
