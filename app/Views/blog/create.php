@@ -16,6 +16,8 @@
                 </div>
             <?php endif; ?>
             <form action="<?= base_url('blog/create') ?>" method="POST">
+                <?= csrf_field() ?>
+
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" name="title" id="title" class="form-control" value="<?= set_value('title') ?>">

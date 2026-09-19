@@ -9,6 +9,7 @@
             <h3>Register</h3>
             <hr>
             <form class="" action="<?= base_url('register') ?>" method="POST">
+                <?= csrf_field() ?> 
                 <div class="row">
                     <div class="col-12 col-sm-6 form-group">
                         <label for="firstname">First Name</label>                        

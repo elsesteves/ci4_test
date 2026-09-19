@@ -78,7 +78,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             // 'honeypot',
-            // 'csrf',
+            'csrf',
             // 'invalidchars',
 
             'userscheck',//custom filter to ensure single point of entry 4 user pages
