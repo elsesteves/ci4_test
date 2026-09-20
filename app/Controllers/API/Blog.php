@@ -10,19 +10,33 @@ class Blog extends ResourceController
     protected $modelName = 'App\Models\Blog';//model gets linked automatically
     protected $format    = 'json';
 
-    // GET /api/blog (Listar todos os posts)
+    // GET /api/blog
     /**
      * List all blog posts
      */
     public function index()
     {
-        $posts = $this->model->findAll();
+        $data['posts'] = $this->model
+                    ->select('posts.*, CONCAT(users.firstname, " ", users.lastname) AS author_name')                    
+                    ->join('users', 'posts.author_id = users.id', 'left')//LEFT JOIN
+                    ->orderBy('id', 'DESC')
+                    ->paginate(5);
+
+        $pager = $this->model->pager;
+
+        $data['pagination'] = [
+            "results_total" => $pager->getTotal(),
+            "pages_total" => $pager->getPageCount(),
+        ];
         
         // Retorna status 200 OK com o JSON dos posts
-        return $this->respond($posts, 200);
+        return $this->respond($data, 200);
     }
 
-    // GET /api/blog/{id} (Mostrar um post específico)
+    // GET /api/blog/{id}
+    /**
+     * Shows a post with the provided id
+     */
     public function show($id = null)
     {
         $post = $this->model->find($id);
@@ -34,21 +48,4 @@ class Blog extends ResourceController
         return $this->respond($post, 200);
     }
 
-    // POST /api/blog (Criar um novo post)
-    public function create()
-    {
-        // Obtém os dados do corpo da requisição JSON ou POST nativo
-        $data = $this->request->getPost() ?? $this->request->getJSON(true);
-
-        if (!$this->model->insert($data)) {
-            // Retorna os erros de validação do Model automaticamente
-            return $this->failValidationErrors($this->model->errors());
-        }
-
-        return $this->respondCreated([
-            'status'  => 201,
-            'message' => 'Post criado com sucesso!',
-            'id'      => $this->model->getInsertID()
-        ]);
-    }
 }

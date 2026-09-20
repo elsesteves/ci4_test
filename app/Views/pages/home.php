@@ -32,13 +32,49 @@
 
     <section>
         <div class="container">
-            <?php if(isset($news) && !empty($news)) : ?>
-                <?php foreach($news as $newsItem) : ?>
-                    <h3><a href="<?= base_url(["post", $newsItem['slug']]) ?>"><?= $newsItem['title'] ?></a></h3>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="text-center">There are no posts yet</p>
-            <?php endif; ?>
+            <div class="row">
+                <div class="col-12 pt-3 mt-5 pb-3 bg-white form-wrapper">
+                    <h3>Recent Posts</h3>
+                    <hr>
+                    <?php
+                        if(isset($news['pager'])) {
+                            // Display the default CI pagination from CodeIgniter
+                            print $news['pager']->links();
+                        }
+                    ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(isset($news['rows']) && !empty($news['rows'])) : ?>
+                                <?php foreach($news['rows'] as $post) : ?>
+                                <tr>
+                                    <th scope="row"><?= $post['id'] ?></th>
+                                    <td><?= esc($post['title']) ?></td>
+                                    <td><?= esc($post['author_name']) ?></td>
+                                    <td><?= date('d-M-Y', strtotime($post['created_at'])) ?></td>
+                                    <td>
+                                        <a href="<?= base_url("post/".$post['slug']) ?>">View</a>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-center"></p>
+                                <tr>
+                                    <td colspan="5">There are no posts yet</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </section>
 </div>

@@ -81,6 +81,39 @@ a:visited {
     max-width: 100%;
 }
 
+/*Pagination*/
+ul.pagination {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+ul.pagination li a {
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+ul.pagination li:not(.active) a {
+    color: inherit;
+    background: #e5e5e5;
+}
+
+ul.pagination li:not(.active) a:hover {
+    background: #ff4a0b;
+    color: #fff;
+}
+
+ul.pagination li.active a {
+    background: #dd4814;
+    color: #fff;
+    cursor: default;
+    pointer-events: none;
+}
+
 @media (max-width: 768px) {
     .form-wrapper .text-end {
         text-align: center !important;

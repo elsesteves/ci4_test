@@ -27,6 +27,7 @@ class Pages extends BaseController
         if ($viewPath) {
             if($page == 'home') {
                 $data['news'] = $blogModel->getPosts();
+                //$data['newsPager'] = $blogModel->pager;//For displaying pagination nav
             }
 
             //The view exist

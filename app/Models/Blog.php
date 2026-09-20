@@ -68,34 +68,31 @@ class Blog extends Model {
     }
 
     public function getPosts($slug = null) {
+        $this->builder()
+            ->select('posts.*, CONCAT(users.firstname, " ", users.lastname) AS author_name')                    
+            ->join('users', 'posts.author_id = users.id', 'left');//LEFT JOIN
+
         $authorModel = new User();
 
         if(empty($slug)) {
-            $rows = $this->findAll();
+            $pager = service('pager');
+            $output = [];
+            /*
+                * instead of findAll() paginate provides the page results, without the need to adjust 
+                limit, offset and counting all the actual results to compute page limits through ceil(totalRes/pageMax)
+            */
+            $rows = $this->orderBy('id', 'DESC')
+                            ->paginate(5);
+            
+            $output['pager'] = $this->pager;
+            $output['rows'] = $rows;
 
-            if (!empty($rows)) {
-                $authorIds = array_unique(array_column($rows, 'author_id'));
-                $authors = $authorModel->whereIn('id', $authorIds)->findAll();
-                $authorsIndexed = array_column($authors, null, 'id');
-
-                foreach ($rows as &$row) {
-                    if(!empty($row['author_id'])) {
-                        continue;
-                    }
-                    $row['author'] = $authorsIndexed[$row['author_id']] ?? null;
-                }
-            }
-
-            return $rows;
+            return $output;
         }
 
         $row = $this->asArray()
                     ->where(['slug' => $slug])
                     ->first();
-                    
-        if(!empty($row['author_id'])) {
-            $row['author'] = $authorModel->getUser($row['author_id']);
-        }
 
         return $row;
     }

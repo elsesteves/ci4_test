@@ -14,7 +14,11 @@ class Blog extends BaseController
 
     public function myPosts() {
         $model = new \App\Models\Blog();
-        $data['posts'] = $model->where('author_id', session()->get('id'))->findAll();
+        $data['posts'] = $model->where('author_id', session()->get('id'))
+                                ->orderBy('id', 'DESC')//show most recent first
+                                //->findAll();
+                                ->paginate(5);
+        $data['pager'] = $model->pager;
 
         return view('blog/authed', $data);
     }
