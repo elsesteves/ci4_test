@@ -26,6 +26,8 @@ class BlogTest extends CIUnitTestCase
         $result = $this->withSession($sessionData)
                         ->get('/blog/my-posts');
 
+        //$data = json_decode($result->getJSON(), true);
+
         $result->assertStatus(200);
         $result->assertSee('My Posts');
     }
@@ -36,5 +38,7 @@ class BlogTest extends CIUnitTestCase
         $result = $this->get('/blog/my-posts');
 
         $result->assertStatus(302);
+
+        $result->assertRedirectTo('/');
     }
 }
