@@ -49,7 +49,7 @@ class UserTest extends CIUnitTestCase
     public function testReturnValidUserProfile4BrowserSession() : void
     {
        $sessionData = [
-            "id" => 1,
+            "id" => env("ADMIN_ID"),
             'isLoggedIn' => true,
         ];
 
