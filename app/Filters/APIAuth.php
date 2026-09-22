@@ -28,6 +28,12 @@ class APIAuth implements FilterInterface
                     ->setJSON(['error' => 'invalid or expired token'])
                     ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
             }
+
+            if($decoded->iss != base_url()) {//issuer differs from us
+                return Services::response()
+                    ->setJSON(['error' => 'invalid or expired token'])
+                    ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
+            }
             
             // Inject the user id in request
             $request->user_id = $decoded->uid;
