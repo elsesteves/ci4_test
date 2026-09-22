@@ -13,7 +13,16 @@ class APIAuth implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        $authenticationHeader  = $request->getServer('HTTP_AUTHORIZATION');
+        //Standard CI4 method, works both on CLI/PHPUnit and Postman
+        $authenticationHeader = $request->getHeaderLine('Authorization');
+
+        //Fallback for Apache/LiteSpeed servers renaming the key
+        if (empty($authenticationHeader)) {
+            $authenticationHeader = $request->getServer('HTTP_AUTHORIZATION') 
+                                    ?? $request->getServer('REDIRECT_HTTP_AUTHORIZATION');
+        }
+
+        //$authenticationHeader = $request->getServer('HTTP_AUTHORIZATION');
 
         if (empty($authenticationHeader)) {
         }
@@ -34,15 +43,13 @@ class APIAuth implements FilterInterface
                     ->setJSON(['error' => 'invalid or expired token'])
                     ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
             }
-            
             // Inject the user id in request
             $request->user_id = $decoded->uid;
             return;
         }
 
-
         // Fallback to native session check
-        if (session()->get('isLoggedIn')) {
+        if (session()->get('isLoggedIn') && session()->has('id')) {
             //If is using native session check for CSRF token, when method isn't GET
             if($request->getMethod() != 'GET') {
                 $csrf = new \CodeIgniter\Filters\CSRF();

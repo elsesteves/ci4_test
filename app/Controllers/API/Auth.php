@@ -30,7 +30,7 @@ class Auth extends ResourceController
 
         // 3. Validar o utilizador e a password (usando password_verify do PHP)
         if (!$user || !password_verify($password, $user['password'])) {
-            return $this->failUnauthorized('Credenciais inválidas. Tente novamente.');
+            return $this->failUnauthorized('Invalid Credentials. Try again.');
         }
 
         $payload = [

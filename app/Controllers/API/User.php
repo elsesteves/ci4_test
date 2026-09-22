@@ -22,12 +22,12 @@ class User extends ResourceController
         $user = $this->model->find($userId);
 
         if (!$user) {
-            return $this->failNotFound('User not found');
+            return $this->failNotFound('User not found', 401);
         }
 
         // Remove dados sensíveis antes de enviar o JSON de resposta
         unset($user['password']);
 
-        return $this->respond($user);
+        return $this->respond($user, 200);
     }
 }
