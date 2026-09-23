@@ -39,6 +39,6 @@ class BlogTest extends CIUnitTestCase
 
         $result->assertStatus(302);
 
-        $result->assertRedirectTo('/');
+        $result->assertRedirectTo('/login');
     }
 }
