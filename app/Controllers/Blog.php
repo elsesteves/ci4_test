@@ -7,7 +7,9 @@ class Blog extends BaseController
 {
     public function post(string $slug) {
         $model = new \App\Models\Blog();
-        $data['post'] = $model->getPosts($slug);
+        $data['post'] = $model->getPosts([
+            'slug' => $slug,
+        ]);
 
         return view('blog/post', $data);
     }
