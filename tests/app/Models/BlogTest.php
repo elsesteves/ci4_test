@@ -103,7 +103,7 @@ class BlogTest extends CIUnitTestCase
         $countHipothesis = 26;
 
         $this->assertCount($countHipothesis, $posts);
-        $this->assertEquals('Test wsfwfwffw01', $posts[($countHipothesis - 1)]['title']);
+        $this->assertEquals('Test 01', $posts[($countHipothesis - 1)]['title']);
     }
 
 }
