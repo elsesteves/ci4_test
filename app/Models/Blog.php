@@ -23,9 +23,9 @@ class Blog extends Model {
     protected $deletedField  = 'deleted_at';
 
     protected $validationRules = [
-        'title'     => 'required',
+        'title'     => 'required|min_length[6]|max_length[255]',
         'body'      => 'required',
-        'author_id' => 'required',
+        'author_id' => 'required|is_natural_no_zero',
     ];
 
 
@@ -50,16 +50,19 @@ class Blog extends Model {
     }
 
     protected function validationRulesAdjust(array $data) {
+        $rules = [];
+
         if (isset($data['id'])) {
-            $this->validationRules['title']     = isset($data['data']['title']) ? 'required|min_length[6]|max_length[255]' : '';
-            $this->validationRules['body']      = isset($data['data']['body']) ? 'required' : '';
-            $this->validationRules['author_id'] = isset($data['data']['body']) ? 'required|is_natural_no_zero' : '';
+            $rules['title']     = isset($data['data']['title']) ? 'required|min_length[6]|max_length[255]' : '';
+            $rules['body']      = isset($data['data']['body']) ? 'required' : '';
+            $rules['author_id'] = isset($data['data']['body']) ? 'required|is_natural_no_zero' : '';
         } else {
-            $this->validationRules['title']     = 'required|min_length[6]';
-            $this->validationRules['body']      = 'required';
-            $this->validationRules['author_id'] = 'required|is_natural_no_zero';
+            $rules['title']     = 'required|min_length[6]|max_length[255]';
+            $rules['body']      = 'required';
+            $rules['author_id'] = 'required|is_natural_no_zero';
         }
 
+        $this->setValidationRules($rules);
         return $data;
     }
 

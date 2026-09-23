@@ -85,8 +85,8 @@ class BlogTest extends CIUnitTestCase
         $this->assertFalse($result);
 
         $errors = $this->model->errors();
-        $this->assertArrayHasKey('title', $errors);
-        $this->assertStringContainsString("Title is a required field", $errors['title']);
+        $this->assertArrayHasKey('author_id', $errors);
+        $this->assertStringContainsString("The post requires an author", $errors['author_id']);
     }
 
 
