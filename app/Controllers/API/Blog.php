@@ -53,7 +53,9 @@ class Blog extends ResourceController
      * Create a new post
      */
     public function create()
-    {        
+    {    
+        $errors = [];
+
         helper(['form', 'text']);
 
         $author_id = $this->request->user_id;
@@ -63,8 +65,6 @@ class Blog extends ResourceController
             "body" => $this->request->getVar('body'),
             "author_id" => $author_id,
         ];
-
-        $errors = [];
 
         $rules = [
             "title" => 'required|min_length[6]|max_length[255]|trim',
@@ -89,9 +89,7 @@ class Blog extends ResourceController
         $sanitizer = new \App\Libraries\HtmlSanitizer();
         $data['body'] = $sanitizer->purify($data['body']);
 
-        $model = new \App\Models\Blog();
-        $id = $model->insert($data, true);
-
+        $id = $this->model->insert($data, true);
         $post = $this->model->find($id);
 
         return $this->respond($post, 200);
@@ -99,10 +97,27 @@ class Blog extends ResourceController
 
 
     public function edit($id = null)
-    {     
+    {        
+        $errors = [];
+
         helper(['form', 'text']);
 
         $author_id = $this->request->user_id;
+
+        $post = $this->model->where([
+            'id' => $id,
+            'author_id' => $author_id
+        ])->first();
+
+        if(empty($post)) {
+            $errors['unauthorized'] = 'The author selected post does not match the user';
+
+            $output = [
+                "status" => 401,
+                "errors" => $errors,
+            ];
+            return $this->respond($output, 401);
+        }
 
         $data = [
             "title" => $this->request->getVar('title'),
@@ -110,7 +125,6 @@ class Blog extends ResourceController
             "author_id" => $author_id,
         ];
 
-        $errors = [];
 
         $rules = [
             "title" => 'required|min_length[6]|max_length[255]|trim',
@@ -135,10 +149,8 @@ class Blog extends ResourceController
         $sanitizer = new \App\Libraries\HtmlSanitizer();
         $data['body'] = $sanitizer->purify($data['body']);
 
-        $model = new \App\Models\Blog();
-        //$id = $model->insert($data, true);
         $data['id'] = $id;
-        $model->save($data);
+        $this->model->save($data);
 
         $post = $this->model->find($id);
 
