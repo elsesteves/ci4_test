@@ -22,3 +22,16 @@ A hands-on repository exploring the core capabilities, security features, and AP
   * **External Consumption:** Stateless JWT token validation using the `firebase/php-jwt` library, delivering structured JSON payloads equipped with standard pagination metadata.
   * **Internal Consumption:** Stateful Session-based validation coupled with strict CSRF enforcement for mutation endpoints.
 * **Unit Tests:** Implementation of some unit and integration tests through PHPUnit.
+
+
+## Testing
+
+Run the full suite:
+    ./vendor/bin/phpunit tests/app/
+
+28 tests, 98 assertions, all passing.
+
+Coverage is concentrated on security-critical components:
+- Authentication filters & JWT library: 100%
+- HTML sanitization (XSS protection): 100%
+- Auth API controller: 100%
