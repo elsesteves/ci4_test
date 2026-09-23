@@ -21,3 +21,4 @@ A hands-on repository exploring the core capabilities, security features, and AP
 * **Hybrid API Authentication Architecture (Custom Before Filter):**
   * **External Consumption:** Stateless JWT token validation using the `firebase/php-jwt` library, delivering structured JSON payloads equipped with standard pagination metadata.
   * **Internal Consumption:** Stateful Session-based validation coupled with strict CSRF enforcement for mutation endpoints.
+* **Unit Tests:** Implementation of some unit and integration tests through PHPUnit.
