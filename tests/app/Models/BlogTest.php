@@ -100,12 +100,9 @@ class BlogTest extends CIUnitTestCase
         // Executa método customizado do teu model
         $posts = $this->model->getPosts(["author_id" => env('ADMIN_ID')]);
 
-        $countHipothesis = 26;
-        $lastPost = end($posts);
+        $lastPost = $posts['rows'][0];//ORDER BY id DESC
 
-
-        //$this->assertCount($countHipothesis, $posts);
-        $this->assertEquals('Test 01', $posts[($countHipothesis - 1)]['title']);
+        $this->assertEquals('Test 01', $lastPost['title']);
     }
 
 }
