@@ -7,7 +7,12 @@ use CodeIgniter\Router\RouteCollection;
 
 
 $routes->group('api', function($routes) {
-    $routes->resource('blog', ['controller' => 'API\Blog']);
+    //$routes->resource('blog', ['controller' => 'API\Blog']);//needed apiauth filter for POST endpoints
+
+    $routes->get('blog', 'API\Blog::index');
+    $routes->get('blog/(:num)', 'API\Blog::show/$1');
+    $routes->post('blog', 'API\Blog::create', ['filter' => 'apiauth']);
+    $routes->post('blog/(:num)', 'API\Blog::edit/$1', ['filter' => 'apiauth']);
 
     $routes->post('login', 'API\Auth::login');//public route for getting the JWT
 

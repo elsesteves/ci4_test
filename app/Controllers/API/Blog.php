@@ -48,4 +48,101 @@ class Blog extends ResourceController
         return $this->respond($post, 200);
     }
 
+
+    /**
+     * Create a new post
+     */
+    public function create()
+    {        
+        helper(['form', 'text']);
+
+        $author_id = $this->request->user_id;
+
+        $data = [
+            "title" => $this->request->getVar('title'),
+            "body" => $this->request->getVar('body'),
+            "author_id" => $author_id,
+        ];
+
+        $errors = [];
+
+        $rules = [
+            "title" => 'required|min_length[6]|max_length[255]|trim',
+            "body" => 'required|trim',
+        ];
+
+        if(!$this->validate($rules)) {//Validates the request against the provided set of rules
+            // failed validation
+            $errors = $this->validator->getErrors();
+        }
+
+        if(!empty($errors)) {
+            $output = [
+                "status" => 400,
+                "errors" => $errors,
+            ];
+            return $this->respond($output, 400);
+        }
+
+        $data['title'] = filter_var($data['title'], FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $sanitizer = new \App\Libraries\HtmlSanitizer();
+        $data['body'] = $sanitizer->purify($data['body']);
+
+        $model = new \App\Models\Blog();
+        $id = $model->insert($data, true);
+
+        $post = $this->model->find($id);
+
+        return $this->respond($post, 200);
+    }
+
+
+    public function edit($id = null)
+    {     
+        helper(['form', 'text']);
+
+        $author_id = $this->request->user_id;
+
+        $data = [
+            "title" => $this->request->getVar('title'),
+            "body" => $this->request->getVar('body'),
+            "author_id" => $author_id,
+        ];
+
+        $errors = [];
+
+        $rules = [
+            "title" => 'required|min_length[6]|max_length[255]|trim',
+            "body" => 'required|trim',
+        ];
+
+        if(!$this->validate($rules)) {//Validates the request against the provided set of rules
+            // failed validation
+            $errors = $this->validator->getErrors();
+        }
+
+        if(!empty($errors)) {
+            $output = [
+                "status" => 400,
+                "errors" => $errors,
+            ];
+            return $this->respond($output, 400);
+        }
+
+        $data['title'] = filter_var($data['title'], FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $sanitizer = new \App\Libraries\HtmlSanitizer();
+        $data['body'] = $sanitizer->purify($data['body']);
+
+        $model = new \App\Models\Blog();
+        //$id = $model->insert($data, true);
+        $data['id'] = $id;
+        $model->save($data);
+
+        $post = $this->model->find($id);
+
+        return $this->respond($post, 200);
+    }
+
 }
